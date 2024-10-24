@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from .models import Customer
 
 
@@ -20,6 +21,8 @@ class CustomerRegisterSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(required=False,max_length=225,
+            validators=[UniqueValidator(queryset=Customer.objects.all())])
 
     class Meta:
         model = Customer
