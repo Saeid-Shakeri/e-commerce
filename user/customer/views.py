@@ -3,8 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
 from .models import Customer
-from .serializers import *
+from .serializers import (CustomerRegisterSerializer,
+        ProfileSerializer, ChangePasswordSerializer, ChangeEmailSerializer)
 
 
 class CustomerRegisterView(CreateAPIView):
@@ -36,6 +38,10 @@ class ProfileView(RetrieveUpdateAPIView):
 class ChangePasswordView(APIView):
     permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(
+        request_body=ChangePasswordSerializer,
+        operation_id="change_user_password",
+    )
     def post(self, request, *args, **kwargs):
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
@@ -51,6 +57,12 @@ class ChangePasswordView(APIView):
 class ChangeEmailView(APIView):
     permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(
+            request_body=ChangeEmailSerializer,
+            operation_id="change_user_email",
+            # operation_summary="Change user Email",
+            # operation_description="This endpoint allows you to ..."
+    )
     def post(self, request, *args, **kwargs):
         serializer = ChangeEmailSerializer(data=request.data)
         if serializer.is_valid():
