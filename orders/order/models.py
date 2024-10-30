@@ -5,7 +5,7 @@ class Order(models.Model):
     user_id = models.PositiveIntegerField()
     total_price = models.PositiveIntegerField()
     status = models.CharField(max_length=10, choices=[
-        ("incomplete", "Incomplete"), ('paid', 'Paid'), ('canceled', 'Cancelled')]
+        ("incomplete", "Incomplete"), ('paid', 'Paid'), ('failed', 'Failed'), ('canceled', 'Cancelled')]
         , default='incomplete')
     created_at = models.DateTimeField(auto_now_add=True)
 
