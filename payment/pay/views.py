@@ -1,17 +1,20 @@
-import random
+from random import random
+# from requests import post
+import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import connections
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import PaymentSerializer
+from kafka import KafkaProducer
 
 
 class PaymentView(APIView):
 
     @swagger_auto_schema(
             request_body=PaymentSerializer,
-            operation_id="process_simulation",
+            operation_id="payment_simulation",
             # operation_summary="Change user Email",
             # operation_description="This endpoint allows you to ..."
     )
@@ -21,19 +24,29 @@ class PaymentView(APIView):
             return Response({'error': 'Order ID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
         with connections['external_db'].cursor() as cursor:
-            cursor.execute("SELECT id, status FROM Order WHERE id = %s", [order_id]) # order = ExternalOrder.objects.using('external_db').get(id=order_id)
+            cursor.execute("SELECT id, status FROM orders WHERE id = %s", [order_id]) # order = ExternalOrder.objects.using('external_db').get(id=order_id)
             order = cursor.fetchone()
             
             if not order:
                 return Response({'error': 'Order not found in external database'}, status=status.HTTP_404_NOT_FOUND)
             
-            if random.random() < 0.8:
+            if random() < 0.8:
                 new_status = 'paid'
                 result = 'success'
             else:
                 new_status = 'failed'
                 result = 'failed'
-            
-            cursor.execute("UPDATE Order SET status = %s WHERE id = %s", [new_status, order_id])
+            cursor.execute("UPDATE orders SET status = %s WHERE id = %s", [new_status, order_id])
+            email_data = {
+                'order_id': order_id,
+                'status': new_status,
+                'email': 'user@largescale.com' # todo: request.user.email
+            }
+            # requests.post('http://localhost:8000/send_email/', json=email_data)
+
+            producer = KafkaProducer(bootstrap_servers='localhost:9092',
+                                     value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+            producer.send('payment_result', {'email_data': email_data})
+            producer.flush()
 
         return Response({'status': result}, status=status.HTTP_200_OK)
