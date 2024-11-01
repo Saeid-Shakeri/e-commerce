@@ -32,3 +32,47 @@ class OrderCreateView(APIView):
     def post(self, request):
         order = Order.objects.create(user_id=request.user)
         return Response({'result':'new order created succesfully', 'new_order_id':{order.id}})
+
+
+class AddToCartView(generics.CreateAPIView):
+    serializer_class = AddToCartSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            order_id = request.data['order_id']
+            try:
+                exist = Order.objects.filter(id=order_id,user_id=request.user.id,status='incomplate').exists()
+                if exist:
+                    order = Order.objects.get(id=order_id,user_id=request.user.id,status='incomplate')
+                else:
+                    order =  Order.objects.create(user_id=request.user)
+
+            except Exception as e:
+                return Response(f'Error : {e} {order_id}',status=400)
+            product_id = request.data['order_id']
+            try:
+                p = Product.objects.get(id=product_id)
+            except Exception as e:
+                return Response(f'Error : product not found {product_id}',status=400)
+            quantity = request.data['quantity']
+            if p.quantity >= quantity:
+                OrderItem.objects.create(order=order,product_id=p,
+                        quantity=quantity,price=p.price)
+                order.total_price += p.price * quantity
+                order.save()
+                return Response({'status':'added succesfully'},status=200)
+            else :
+               return Response({'error': 'Not enough in stock'},status=409)
+
+
+class UserOrderListView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Order.objects.filter(user_id=user.id)
