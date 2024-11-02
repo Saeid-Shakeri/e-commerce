@@ -44,19 +44,17 @@ class AddToCartView(generics.CreateAPIView):
         if serializer.is_valid():
             order_id = request.data['order_id']
             try:
-                exist = Order.objects.filter(id=order_id,user_id=request.user.id,status='incomplate').exists()
-                if exist:
-                    order = Order.objects.get(id=order_id,user_id=request.user.id,status='incomplate')
-                else:
-                    order =  Order.objects.create(user_id=request.user)
+                order = Order.objects.get(id=order_id,user_id=request.user)
+                if order.status != 'incomplete':
+                    return Response('this order completed',status=400)
 
             except Exception as e:
                 return Response(f'Error : {e} {order_id}',status=400)
-            product_id = request.data['order_id']
+            product_id = request.data['product_id']
             try:
-                p = Product.objects.get(id=product_id)
+                p = Product.objects.get(id=product_id,in_stock=True)
             except Exception as e:
-                return Response(f'Error : product not found {product_id}',status=400)
+                return Response(f'Error : product not found , or not in stock {product_id}',status=400)
             quantity = request.data['quantity']
             if p.quantity >= quantity:
                 OrderItem.objects.create(order=order,product_id=p,
