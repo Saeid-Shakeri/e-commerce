@@ -7,7 +7,7 @@ from rest_framework import status
 from django.db import connections
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import PaymentSerializer
-from .models import Order
+from .models import Order, Product, OrderItem
 from kafka import KafkaProducer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -46,6 +46,13 @@ class PaymentView(APIView):
         # cursor.execute("UPDATE orders SET status = %s WHERE id = %s", [new_status, order_id])
         order.status = new_status
         order.save()
+        if new_status == 'paid':
+            order_items = OrderItem.objects.filter(order_id=order.id)
+            for item in order_items:
+                p = Product.objects.get(id=item.product_id.id)
+                p.quantity -= item.quantity
+                p.save()
+
         email_data = {
             'order_id': order_id,
             'status': new_status,
