@@ -3,9 +3,12 @@ from rest_framework.response import Response
 from django.core.mail import send_mail
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import SendEmailSerializer
+from .permissions import IsAdmin
 
 
 class SendEmailView(APIView):
+    permission_classes = (IsAdmin,)
+
     @swagger_auto_schema(
         request_body=SendEmailSerializer,
         operation_id="send_email",
