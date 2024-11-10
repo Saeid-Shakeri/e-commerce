@@ -9,7 +9,7 @@ class CustomerModelTest(TestCase):
         customer = Customer.objects.create_user(username='testuser', password='password123', email='testuser@example.com')
         self.assertEqual(customer.username, 'testuser')
         self.assertEqual(customer.email, 'testuser@example.com')
-        self.assertTrue(customer.check_password('password123'))
+        self.assertTrue(customer.check_password('password'))
 
 
 class APICustomerRegisterTest(APITestCase):
