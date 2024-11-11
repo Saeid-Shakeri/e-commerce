@@ -17,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: List directory contents (for debugging)
+      run: ls -R
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
