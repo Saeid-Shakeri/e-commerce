@@ -69,6 +69,6 @@ class ChangeEmailView(APIView):
             user = request.user
             user.email = serializer.data.get("email")
             user.save()
-            return Response({"status": "email set"}, status=status.HTTP_200_OK)
+            return Response({"status": "email set"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
