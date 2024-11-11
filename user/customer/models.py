@@ -15,9 +15,10 @@ class Category(models.Model):
     
     class Meta:
         db_table = "categories"
-
     
-
+    def __str__(self):
+        return self.name
+    
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -29,6 +30,9 @@ class Product(models.Model):
 
     class Meta:
         db_table = "products"
+
+    def __str__(self):
+        return self.name
 
 
 
@@ -43,6 +47,9 @@ class Order(models.Model):
     class Meta:
         db_table = "orders"
 
+    def __str__(self):
+        return f'{self.user_id.username}'
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -51,3 +58,6 @@ class OrderItem(models.Model):
 
     class Meta:
         db_table = "order_items"
+
+    def __str__(self):
+        return f'{self.order} - {self.product_id.name}'
