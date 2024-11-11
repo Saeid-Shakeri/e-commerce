@@ -26,7 +26,6 @@ class APICustomerRegisterTest(APITestCase):
         self.assertEqual(response.data['email'], 'testuser@example.com')
 
 
-
 # class ApiChangeEmailTest(APITestCase):
 #     def setUp(self):
 #         self.user = Customer.objects.create(username='user', password='password', email='admin@example.com')
