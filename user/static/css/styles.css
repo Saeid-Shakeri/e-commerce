@@ -1,0 +1,896 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+===================
+icon & fonts
+===================
+*/
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+@font-face {
+    font-family: "vazir";
+    src: url("../fonts/vazir/Vazir-Medium.woff2") format("woff2"),
+        url("../fonts/vazir/Vazir-Medium.woff") format("woff"),
+        url("../fonts/vazir/Vazir-Medium.ttf") format("truetype"),
+        url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.woff2") format("woff2"),
+        url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.woff") format("woff"),
+        url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.ttf") format("truetype");
+}
+
+/*
+=================
+Variables
+=================
+*/
+
+:root {
+    --clr-primary: #e2711d;
+    --clr-primary-light: #ffb627;
+    --clr-grey-1: #102a42;
+    --clr-grey-5: #617d98;
+    --clr-grey-10: #f1f5f8;
+    --clr-white: #fff;
+    --ff-primary: "vazir", sans-serif;
+    --transition: all 0.3s linear;
+
+}
+
+body {
+    font-family: var(--ff-primary);
+    background-color: rgb(231, 231, 231);
+    color: var(--clr-grey-1);
+    text-align: right;
+    font-size: 1rem;
+
+}
+
+p {
+    font-family: 'vazir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+    margin: 0.5rem;
+
+}
+
+a {
+    text-decoration: none;
+
+}
+
+hr {
+    color: #ccc;
+
+}
+
+h1 {
+    font-size: 1.75rem;
+
+}
+
+
+@media screen and (min-width: 800px) {
+
+    h1 {
+        font-size: 2rem;
+
+    }
+}
+
+.btn {
+    background: var(--clr-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    color: var(--clr-white);
+    transition: var(--transition);
+    font-family: var(--ff-primary);
+
+}
+
+.btn:hover {
+    background: var(--clr-primary-light);
+    color: var(--clr-primary);
+
+}
+
+/*
+===================
+header
+===================
+*/
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--clr-grey-1);
+}
+
+/* 
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--clr-grey-1);
+    position: fixed;
+    width: 100%;
+} */
+
+li {
+    float: left;
+
+}
+
+li a {
+    display: block;
+    color: var(--clr-white);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: var(--transition);
+
+}
+
+/* Change the link color to ... on hover */
+li a:hover {
+    color: #23527c;
+    /* background-color: #04AA6D; */
+    text-decoration: none;
+    background-color: #eee;
+
+}
+
+
+.active {
+    background-color: #04AA6D;
+}
+
+.header {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), url(../images/ai.png) center/cover no-repeat fixed;
+    position: relative;
+}
+
+.banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-180%, -50%);
+    text-align: center;
+}
+
+.banner h1 {
+    color: var(--clr-primary);
+    margin-bottom: 2rem;
+}
+
+.btn-banner {
+    border-radius: 0.75rem;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+/* divider */
+.content-divider {
+    height: 0.5rem;
+    background: linear-gradient(to left, var(--clr-primary), var(--clr-primary-light), var(--clr-primary));
+}
+
+/* The latest courses */
+
+.section-title {
+    padding: 2rem;
+}
+
+.no-course {
+    background-color: var(--clr-grey-10);
+    width: 50%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 1.3rem;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 15rem;
+    margin-right: 20rem;
+    padding: 2rem;
+}
+
+.course-name {
+    padding: 0rem 1.5rem;
+    text-align: center;
+    /* margin: 3rem; */
+}
+
+.course-prof {
+    text-align: right;
+    color: #626262;
+    display: inline;
+}
+
+
+.course {
+    margin: 2rem;
+    border: 1px solid #ccc;
+    float: right;
+    width: 16rem;
+    height: 25rem;
+    padding: 1rem 1rem;
+    transition: var(--transition);
+    border-radius: 1.3rem;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+
+.course a:link {
+    color: var(--clr-grey-1);
+
+}
+
+.course a:visited {
+    color: var(--clr-grey-1);
+}
+
+.course:hover {
+    border: 1px solid #777;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7);
+
+}
+
+.course img {
+    width: 100%;
+    height: 50%;
+    border-radius: 1.1rem;
+
+}
+
+.course-rates {
+    float: left;
+    position: relative;
+    /* bottom: 4px; */
+}
+
+.student {
+    color: #777;
+    display: inline;
+}
+
+.course-star {
+    direction: ltr;
+    display: inline;
+}
+
+.star {
+    color: var(--clr-primary-light);
+    padding: 0.5rem;
+    direction: ltr;
+    display: inline;
+}
+
+.rates-number {
+    display: inline;
+    color: #777;
+}
+
+@media screen and (min-width: 800px) {
+
+    .course-name {
+        padding: 0rem 0rem 1.5rem 0rem;
+        margin: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+
+    .course {
+        margin: 1rem;
+        border: 1px solid #ccc;
+        float: right;
+        width: 16rem;
+        height: 26rem;
+        padding: 1rem;
+    }
+
+}
+
+/* footer  */
+
+footer {
+    background-color: var(--clr-grey-1);
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    text-align: center;
+    color: #d9dcdf;
+}
+
+.footer-section ul {
+    background-color: inherit;
+    list-style-type: disclosure-closed;
+    text-align: right;
+    overflow: visible;
+}
+
+.footer-section li {
+    float: none;
+}
+
+.footer-section li::marker {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+
+.footer-section a {
+    /* display: block; */
+    color: #d9dcdf;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+
+.footer-section li a {
+    background-color: inherit;
+    text-align: right;
+
+}
+
+.footer-section li a:hover {
+    background-color: inherit;
+    text-decoration: underline;
+
+}
+
+.footer-bottom hr {
+    height: 0.25rem;
+    background-color: #ccc;
+    margin: 0.5rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin: 1rem;
+    /* border-top: 0.2rem solid #dee2e6; */
+    padding: 1rem;
+    color: #d9dcdf;
+
+}
+
+.footer-icon{
+    font-size: 3em !important;
+    margin:1rem !important; 
+}
+
+
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--clr-primary);
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition);
+    font-size: 3rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+
+}
+
+#myBtn:hover {
+    background-color: var(--clr-primary-light);
+}
+
+/*
+===================
+Contact Us
+===================
+*/
+
+.section-center {
+    padding: 4rem 0;
+    width: 85vw;
+    margin: 0 auto;
+    max-width: 1170px;
+    float: inline-end;
+}
+
+@media screen and (min-width: 992px) {
+    .section-center {
+        width: 95vw;
+    }
+}
+
+.contact {
+    background: var(--clr-primary-light);
+    padding: 20px;
+    margin: 20px;
+
+}
+
+
+.contact article {
+    margin: 1rem 0;
+    /* float: left;
+    display: inline; */
+
+}
+
+
+@media screen and (min-width: 800px) {
+    .contact article {
+        float: right;
+        width: 50%;
+    }
+
+}
+
+.contect-item {
+    margin-bottom: 1.7rem;
+    padding: 5px;
+}
+
+
+.contact-title {
+    color: var(--clr-primary);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.contact-text {
+    font-size: 1.1rem;
+}
+
+.contact-form {
+    background: var(--clr-white);
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    max-width: 35rem;
+
+}
+
+.contact-form:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.contact-form h3 {
+    color: var(--clr-grey-5);
+    padding-top: 1.25rem;
+}
+
+.form-group {
+    padding: 1rem 1.5rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: var(--clr-grey-10);
+    border-radius: 0.6rem;
+}
+
+.form-control::placeholder {
+    font-family: var(--ff-primary);
+    color: var(--clr-grey-1);
+
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    border: none;
+    font-family: var(--ff-primary);
+}
+
+/* end of contact us  */
+
+.checked {
+    color: var(--clr-primary-light);
+}
+
+.star-btn {
+    background-color: inherit;
+    border: 0;
+}
+
+
+/* 
+==============
+
+Course Detail page
+
+============== */
+
+
+.center {
+    background-color: var(--clr-grey-10);
+    margin-right: 1rem;
+    width: 50%;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 1rem 1rem;
+    border-radius: 1.3rem;
+    margin-bottom: 1rem;
+
+
+}
+
+.center img {
+    width: 100%;
+    height: 50%;
+    border-radius: 1.1rem;
+
+}
+
+
+/* 
+===========
+Comment section
+=========== 
+*/
+
+.contact-comment {
+    margin-right: 5rem;
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+}
+
+.comment {
+    background-color: var(--clr-grey-10);
+    /* margin-right: 4rem; */
+    margin-bottom: 1rem;
+    /* width: 50%; */
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 1rem 1rem;
+    border-radius: 1.3rem;
+    width: 100%;
+    margin-right: 2rem;
+
+}
+
+.comment-name {
+    display: inline;
+
+}
+
+.comment-date {
+    float: left;
+}
+
+
+.actions {
+    float: left;
+    position: relative;
+    bottom: 20px;
+}
+
+.actions a {
+    color: #04AA6D;
+
+}
+
+.red {
+    color: #d40349;
+}
+
+
+/* ********************* */
+
+.topics {
+    background-color: var(--clr-grey-10);
+    color: var(--clr-grey-1);
+    width: auto;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* margin-right: 4rem; */
+}
+
+.topics-head-icon {
+    margin: 1rem 0.5rem 1rem 0;
+}
+
+.topics-head {
+    margin: 0.5rem;
+    margin-top: 1rem;
+    display: inline;
+}
+
+.course-progress {
+    display: inline;
+    /* margin: 1rem 27rem 1rem 0; */
+    position: relative;
+    top: 13px;
+    left: 20px;
+    float: left;
+}
+
+.topics a {
+    text-decoration: none;
+    color: #194268;
+    font-weight: 100;
+}
+
+.topics a:hover {
+    text-decoration: underline;
+    text-decoration-color: #194268;
+
+}
+
+.course-body {
+    background-color: var(--clr-grey-10);
+    /* margin-right: 4rem; */
+    width: auto;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.btn-continue {
+    margin-right: 25%;
+    margin-bottom: 2rem;
+    width: 50%;
+    border: none;
+    font-family: var(--ff-primary);
+}
+
+
+.course-pic {
+    background-color: var(--clr-grey-10);
+    margin-right: 9rem;
+    margin-top: 1.5rem;
+    width: 70%;
+    height: 25rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.course-pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.1rem;
+
+}
+
+.course-prof-body {
+    background-color: var(--clr-grey-10);
+    /* margin-right: 4rem; */
+    width: auto;
+    height: auto;
+    border: 1px solid #ccc;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 1.3rem;
+    margin-bottom: 1rem;
+
+}
+
+
+.prof-pic {
+    margin-right: 0.5rem;
+}
+
+.prof-pic img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 15px;
+}
+
+.prof-pic a:hover {
+    text-decoration: underline;
+}
+
+
+.prof-pic a:visited {
+    color: #0000EE;
+}
+
+.prof-pic a:active {
+    color: var(--clr-primary)
+}
+
+.wrapper {
+    width: 70%;
+    margin-right: 10rem;
+}
+
+/* 
+===========
+change password and edit profile
+=========== 
+*/
+
+
+.forgot {
+    color: var(--clr-primary);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+}
+
+.forgot a {
+    color: var(--clr-primary);
+
+}
+
+.forgot a:hover {
+    text-decoration: underline;
+}
+
+.change-pass {
+    text-align: center;
+}
+
+.change-pass::placeholder {
+    text-align: center;
+
+}
+
+.lesson-body {
+    background-color: var(--clr-grey-10);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    width: auto;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 1.3rem;
+}
+
+.lesson-video {
+    width: 100%;
+    height: auto;
+    border-radius: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.dashboard-icons {
+    /* color: var(--clr-white); */
+    position: relative;
+    top: 3px;
+    font-size: 3em;
+}
+
+/* a .dashboard-icons:hover{
+color: var(--clr-grey-1);
+} */
+
+.user-pic {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.user-pic img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    /* position: relative;
+    top: 15px; */
+    /* margin-bottom: 0.5rem; */
+
+}
+
+.user-name {
+    color: var(--clr-white);
+    text-align: center;
+    margin-bottom: 3.5rem;
+
+}
+
+.table {
+    margin-bottom: 12rem;
+    border: #194268;
+    border: 1px solid;
+    text-align: center;
+    overflow-x: auto;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7);
+
+}
+
+th,
+td {
+    padding: 15px;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #0FA16C;
+    color: white;
+}
+
+.edit-profile-form {
+    background: var(--clr-white);
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    max-width: 35rem;
+    margin-right: 29%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.rate-avg {
+    direction: ltr;
+    margin-right: 9rem;
+    width: 70%;
+    float: right;
+    position: relative;
+    top: 23px;
+}
+
+.rate {
+    direction: ltr;
+    margin-right: 9rem;
+}
+
+.rate-form {
+    margin: 0.5rem;
+    float: right;
+}
+
+.rated-lesson {
+    direction: ltr;
+    margin-right: 0rem;
+    width: 70%;
+    float: right;
+    position: relative;
+    top: 30px;
+
+}
+
+.rated {
+    float: right;
+    top: 13px;
+    position: relative;
+}
+
+.teacher {
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+.table-btn {
+    width: max-content;
+}

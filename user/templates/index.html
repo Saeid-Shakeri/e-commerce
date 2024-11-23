@@ -1,0 +1,99 @@
+{% extends "base/base.html" %}
+
+{% block title %} E-commerce | Home {% endblock %}
+{% block content %}  
+  <br>
+  <div style="overflow-x:auto;">
+    <h3 class="section-title">جدیدترین محصولات  :
+    </h3>
+    {% for p in products %}
+      <div class="course">
+        {% comment %} <a href="{% url 'http://127.0.0.1:8001/products/' p.id %}"> {% endcomment %}
+          {% comment %} {% if c.image %}
+            <img src="{{ c.image.url }} ">
+          {% endif %}  {% endcomment %}
+          <h3 class="course-name" style="overflow-x:auto;"> {{p.name}} </h3>
+          <div style="display:inline;"> دسته بندی :  
+          </div>
+          <div class="course-prof"> {{p.category.name}} 
+          </div> 
+         {% comment %} {% for prof in c.professor.all %} 
+            {% if prof.name == c.professor.all.0.name %}
+            {% else %} 
+              <div class="course-prof"> - {{prof.name}} </div>
+            {% endif %}
+          {% endfor %}  {% endcomment %}
+          <br><br>
+          <div>
+            <i class="fa fa-money" aria-hidden="true"></i>
+                        {{p.quantity}}
+            <div class="student">
+              تومان
+            </div>&nbsp; &nbsp;
+            <div class="course-rates">
+              <div class="course-star">
+                {% comment %} <i class="fa fa-star star"></i> {% endcomment %}
+              </div> 
+              {{p.price}} 
+              <div class="rates-number">
+                {% if not p.in_stock %}
+                (ناموجود)
+                {% else %}
+                (باقی مانده)
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+<br><br>
+<div style="overflow-x:auto;">
+  <h3 class="section-title"> دسته بندی ها  :
+  </h3>
+  {% for c in categories %}
+    <div class="course">
+      {% comment %} <a href="{% url 'http://127.0.0.1:8001/products/' p.id %}"> {% endcomment %}
+        {% comment %} {% if c.image %}
+          <img src="{{ c.image.url }} ">
+        {% endif %}  {% endcomment %}
+        <h3 class="course-name" style="overflow-x:auto;"> {{c.name}} </h3>
+        {% comment %} <div style="display:inline;"> دسته بندی :  
+        </div> {% endcomment %}
+        <div class="course-prof"> {{c.description}} 
+        </div> 
+       {% comment %} {% for prof in c.professor.all %} 
+          {% if prof.name == c.professor.all.0.name %}
+          {% else %} 
+            <div class="course-prof"> - {{prof.name}} </div>
+          {% endif %}
+        {% endfor %}  {% endcomment %}
+        {% comment %} <br><br>
+        <div>
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{p.quantity}}
+          <div class="student">
+            تومان
+          </div>&nbsp; &nbsp;
+          <div class="course-rates">
+            <div class="course-star">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{p.price}} 
+            <div class="rates-number">
+              {% if not p.in_stock %}
+              (ناموجود)
+              {% else %}
+              (باقی مانده)
+              {% endif %} 
+            </div>
+          </div>
+        </div>
+      
+      </a>{% endcomment %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
